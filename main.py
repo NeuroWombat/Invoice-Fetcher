@@ -41,17 +41,37 @@ def logoutClose():
     driver.quit()
 
 
-#def getInvoices(date,mode):
+def getInvoices(mode):
+    driver.get('https://app.autopay.eu/invoices')
+
+    period_mode=driver.find_element(By.CLASS_NAME,'')
+    change_period_BTN=driver.find_element(By.CLASS_NAME,'')
+    select_number=driver.find_element(By.CLASS_NAME,'')
+    pages_number=driver.find_element(By.CLASS_NAME,'')
+
+    #Select(period_mode).select_by_value('Current month')
+    #Select(pages_number).select_by_value('50')
 
 
+
+def printInvoices():
+
+    return True
 
 def main():
     l=input("Enter your email: ")
     p=input("Enter your password: ")
 
     if(login(l,p)):
-        #getInvoices()
-        logoutClose()
+        #mode=input("Enter mode: ")
+        printing=input("Do you want to print these invoices? (Y/N): ")
+
+        getInvoices(mode)
+
+        if printing=='Y':
+            printInvoices()
+
+        #logoutClose()
 
 
 if __name__=="__main__":
