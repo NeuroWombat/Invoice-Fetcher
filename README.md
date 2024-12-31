@@ -2,9 +2,9 @@
 A Python program for automating the downloading and printing of invoices from the Autopay service.
 
 ## ✨Features✨
-  > **Download invoices ⬇️** Automatically download invoices from the Autopay service,
-  > **Date selection 📅** Users can choose the date period or select dates manually using an interactive mode from which the invocies will be downloaded,
-  > **Printing 🖨️** Users can choose whether to print the downloaded invoices. The program will automatically sort them by time.
+  -> **Download invoices ⬇️** Automatically download invoices from the Autopay service,  
+  -> **Date selection 📅** Users can choose the date period or select dates manually using an interactive mode from which the invocies will be downloaded,  
+  -> **Printing 🖨️** Users can choose whether to print the downloaded invoices. The program will automatically sort them by time.  
 
 ## 💾Instalation💾
 ### 1. Clone the repository.
