@@ -41,42 +41,16 @@ def logoutClose():
     driver.quit()
 
 
-def getInvoices():
+def getInvoices(mode):
     driver.get('https://app.autopay.eu/invoices')
-    time.sleep(2) # Wait for site load
 
-    # Setting limit selector to maximum [50]
-    invoice_limit=driver.find_element(By.XPATH,'//autopay-select[@name="pageLimit"]//div[@class="ngx-select__toggle btn form-control"]')
-    invoice_limit.click()
-    limit_option=driver.find_element(By.XPATH,'//span[text()="50"]')
-    limit_option.click()
+    period_mode=driver.find_element(By.CLASS_NAME,'')
+    change_period_BTN=driver.find_element(By.CLASS_NAME,'')
+    select_number=driver.find_element(By.CLASS_NAME,'')
+    pages_number=driver.find_element(By.CLASS_NAME,'')
 
-
-
-    # Version for time from select
-    time_period=driver.find_element(By.XPATH,'//autopay-select[@name="period"]//div[@class="ngx-select__toggle btn form-control"]')
-    time_period.click()
-    tP_option=driver.find_element(By.XPATH,'//span[text()="The last 30 days"]')
-    tP_option.click()
-
-    '''Version for selecting exact data
-    start_time=
-    end_time=
-    
-    '''
-    # Apply time period change
-    driver.find_element(By.XPATH,'//button[@type="submit"]').click()
-    time.sleep(1)
-
-    #Downloading invoices
-    directory=""
-    pages_BTNs=driver.find_elements(By.XPATH,'//div[@class="pagination-pages"]//a')
-    pages=int(len(pages_BTNs)/2 -2)    # Divide by 2 because there's 2 divs with page numbers, also -2 for arrows
-
-    for i in range(pages):
-        pages_BTNs[i].click()
-        #get all table of invoices
-
+    #Select(period_mode).select_by_value('Current month')
+    #Select(pages_number).select_by_value('50')
 
 
 
@@ -90,11 +64,12 @@ def main():
 
     if(login(l,p)):
         #mode=input("Enter mode: ")
-        #printing=input("Do you want to print these invoices? (Y/N): ")
-        getInvoices()
+        printing=input("Do you want to print these invoices? (Y/N): ")
 
-        #if printing=='Y':
-        #    printInvoices()
+        getInvoices(mode)
+
+        if printing=='Y':
+            printInvoices()
 
         #logoutClose()
 
