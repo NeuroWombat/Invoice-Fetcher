@@ -27,7 +27,7 @@ def login(email, password):
     if "dashboard" in driver.current_url:
         return True
     else:
-        print("Błąd logowania")
+        print("Login error")
 
     return False
 
@@ -35,7 +35,7 @@ def login(email, password):
 def logoutClose():
     driver.get('https://app.autopay.eu/dashboard')
 
-    logout_BTN = driver.find_element(By.CLASS_NAME, 'autopay-header__logout')
+    logout_BTN = driver.find_element(By.CLASS_NAME,'autopay-header__logout')
     logout_BTN.click()
 
     driver.quit()
@@ -46,17 +46,15 @@ def getInvoices():
     time.sleep(2)  # Wait for site load
 
     # Setting limit selector to maximum [50]
-    invoice_limit = driver.find_element(By.XPATH,
-                                        '//autopay-select[@name="pageLimit"]//div[@class="ngx-select__toggle btn form-control"]')
+    invoice_limit = driver.find_element(By.XPATH,'//autopay-select[@name="pageLimit"]//div[@class="ngx-select__toggle btn form-control"]')
     invoice_limit.click()
-    limit_option = driver.find_element(By.XPATH, '//span[text()="50"]')
+    limit_option = driver.find_element(By.XPATH,'//span[text()="50"]')
     limit_option.click()
 
     # Version for time from select
-    time_period = driver.find_element(By.XPATH,
-                                      '//autopay-select[@name="period"]//div[@class="ngx-select__toggle btn form-control"]')
+    time_period = driver.find_element(By.XPATH,'//autopay-select[@name="period"]//div[@class="ngx-select__toggle btn form-control"]')
     time_period.click()
-    tP_option = driver.find_element(By.XPATH, '//span[text()="The last 30 days"]')
+    tP_option = driver.find_element(By.XPATH,'//span[text()="The last 30 days"]')
     tP_option.click()
 
     '''Version for selecting exact data
@@ -65,18 +63,21 @@ def getInvoices():
 
     '''
     # Apply time period change
-    driver.find_element(By.XPATH, '//button[@type="submit"]').click()
+    driver.find_element(By.XPATH,'//button[@type="submit"]').click()
     time.sleep(1)
 
     # Downloading invoices
-    directory = ""
-    pages_BTNs = driver.find_elements(By.XPATH, '//div[@class="pagination-pages"]//a')
+    #directory="C:\Program Files\Autopay"
+    pages_BTNs = driver.find_elements(By.XPATH,'//div[@class="pagination-pages"]//a')
     pages = int(len(pages_BTNs) / 2 - 2)  # Divide by 2 because there's 2 divs with page numbers, also -2 for arrows
 
-    for i in range(pages):
-        pages_BTNs[i].click()
-        # get all table of invoices
+    for i in range(0,pages):
+        buttons = driver.find_elements(By.XPATH,'//a[@class="download-link ng-star-inserted"]')     # Gets all of PDFs download buttons
+        for j in range(0,len(buttons)):
+            buttons[j].click()          # Downloads invoice
 
+        time.sleep(2)
+        pages_BTNs[pages+2].click()     # !!!!
 
 def printInvoices():
     return True
@@ -85,15 +86,15 @@ def printInvoices():
 def main():
     l = input("Enter your email: ")
     p = input("Enter your password: ")
+    mode = input("Enter mode of filtering invoices [The last 30 days, Current month, Previous month, All history, Any date]: ")
+    if mode == "The last 30 days" or mode == "":
+        start = input("Select starting date [YYYY-MM-DD]: ")
+        end = input("Select ending date [YYYY-MM-DD]: ")
+        # Add prefix to choose right date
 
+    print = input("Do you wanna print the invoices? [Y/N]: ")
     if (login(l, p)):
-        # mode=input("Enter mode: ")
-        # printing=input("Do you want to print these invoices? (Y/N): ")
         getInvoices()
-
-        # if printing=='Y':
-        #    printInvoices()
-
         # logoutClose()
 
 
