@@ -28,6 +28,7 @@ pip install -r requriements.txt
   🔴 User-friendly date selection (manual or period-based)  
   🔴 Folder selection for saving downloaded invoices  
   🔴 Implementing UI for better accessibility  
+  🔴 Better error-handling with selenium find_element
 
 ## Contributing
 If you want to contribute to the development of this project, open a pull request or submit an issue. All suggestions are welcome!
