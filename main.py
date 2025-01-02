@@ -4,6 +4,7 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import time
 import tkinter as tk
+from tkinter import ttk
 
 driver = webdriver.Firefox()
 
@@ -84,34 +85,50 @@ def getInvoices():
 def printInvoices():
     return True
 
-'''
+
 def GUI():
     root=tk.Tk()
-    root.geometry("800x448")
+    root.geometry("600x348")
+    root.title("Invoice automation")
 
     email=tk.StringVar()
     password=tk.StringVar()
 
-    tk.Label(root,text="Invoice download system").grid(column=1,row=0)
+    tk.Label(root,text="Invoice download system").grid(column=3,row=1)
 
-    tk.Label(root,text="E-mail: ").grid(column=2,row=0)
-    tk.Entry(root,textvariable=email).grid(column=2,row=1)
-    tk.Label(root,text="Password: ").grid(column=2,row=2)
-    tk.Entry(root, textvariable=password).grid(column=2,row=3)
+    tk.Label(root,text="E-mail: ").grid(column=1,row=2)
+    tk.Entry(root,textvariable=email).grid(column=2,row=2)
+    tk.Label(root,text="Password: ").grid(column=3,row=2)
+    tk.Entry(root, textvariable=password).grid(column=4,row=2)
 
-    tk.Label(root,text="Date period: ")
+    tk.Label(root,text="Date period: ").grid(column=1,row=3)
+    options=['The last 30 days','Current month','Previous month','All history','Any date']
+    combobox = ttk.Combobox(root, values=options, state='readonly')
+    combobox.set("Select time period")
+    combobox.grid(column=2, row=3)
 
-    tk.Label(root,text="Start")
-    tk.Label(root,text="End")
+    start_label=tk.Label(root,text="Start").grid(column=1,row=4)
+    end_label=tk.Label(root,text="End").grid(column=2,row=4)
 
-    tk.Label(root,text="Do you wanna print invoices?")
+    def on_select(event):
+        if combobox.get()=='Any date':
+            start_label.grid(column=1, row=4)
+            end_label.grid(column=2, row=4)
+        else:
+            start_label.grid_forget()
+            end_label.grid_forget()
 
-    tk.Button(root, text="Download invoices", command=root.destroy).grid(column=3,row=1)
+
+    combobox.bind("<<ComboboxSelected>>", on_select)
+
+    tk.Label(root,text="Do you wanna print invoices?").grid(column=1,row=5)
+
+    tk.Button(root, text="Download invoices", command=root.destroy).grid(column=3,row=7)
     root.mainloop()
-'''
+
 
 def main():
-    #GUI()
+    GUI()
     l = input("Enter your email: ")
     p = input("Enter your password: ")
     mode = input("Enter mode of filtering invoices [The last 30 days, Current month, Previous month, All history, Any date]: ")
