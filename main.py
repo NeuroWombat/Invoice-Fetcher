@@ -84,12 +84,34 @@ def getInvoices():
 def printInvoices():
     return True
 
-
+'''
 def GUI():
-    return True
+    root=tk.Tk()
+    root.geometry("800x448")
 
+    email=tk.StringVar()
+    password=tk.StringVar()
+
+    tk.Label(root,text="Invoice download system").grid(column=1,row=0)
+
+    tk.Label(root,text="E-mail: ").grid(column=2,row=0)
+    tk.Entry(root,textvariable=email).grid(column=2,row=1)
+    tk.Label(root,text="Password: ").grid(column=2,row=2)
+    tk.Entry(root, textvariable=password).grid(column=2,row=3)
+
+    tk.Label(root,text="Date period: ")
+
+    tk.Label(root,text="Start")
+    tk.Label(root,text="End")
+
+    tk.Label(root,text="Do you wanna print invoices?")
+
+    tk.Button(root, text="Download invoices", command=root.destroy).grid(column=3,row=1)
+    root.mainloop()
+'''
 
 def main():
+    #GUI()
     l = input("Enter your email: ")
     p = input("Enter your password: ")
     mode = input("Enter mode of filtering invoices [The last 30 days, Current month, Previous month, All history, Any date]: ")
