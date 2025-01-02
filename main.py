@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import time
+import tkinter as tk
 
 driver = webdriver.Firefox()
 
@@ -11,6 +12,7 @@ def login(email, password):
     driver.get('https://app.autopay.eu/login')
 
     # Accepting cookies to input user data and press login button
+    time.sleep(1)
     driver.find_element(By.ID, 'cmpwelcomebtnyes').click()
     time.sleep(1)  # Wait for cookies pop-up to disappear
 
@@ -43,7 +45,7 @@ def logoutClose():
 
 def getInvoices():
     driver.get('https://app.autopay.eu/invoices')
-    time.sleep(2)  # Wait for site load
+    time.sleep(3)  # Wait for site load
 
     # Setting limit selector to maximum [50]
     invoice_limit = driver.find_element(By.XPATH,'//autopay-select[@name="pageLimit"]//div[@class="ngx-select__toggle btn form-control"]')
@@ -68,18 +70,22 @@ def getInvoices():
 
     # Downloading invoices
     #directory="C:\Program Files\Autopay"
-    pages_BTNs = driver.find_elements(By.XPATH,'//div[@class="pagination-pages"]//a')
-    pages = int(len(pages_BTNs) / 2 - 2)  # Divide by 2 because there's 2 divs with page numbers, also -2 for arrows
+    pages = driver.find_elements(By.XPATH,'//div[@class="pagination-pages"]//a')
+    last_page = int(pages[-2].text)
 
-    for i in range(0,pages):
+    for i in range(0,last_page):
+        time.sleep(10)  # Wait to load page
         buttons = driver.find_elements(By.XPATH,'//a[@class="download-link ng-star-inserted"]')     # Gets all of PDFs download buttons
         for j in range(0,len(buttons)):
-            buttons[j].click()          # Downloads invoice
+            buttons[j].click()          #Downloads invoice
 
-        time.sleep(2)
-        pages_BTNs[pages+2].click()     # !!!!
+        pages[-1].click()     # Pointing to the last element which is next page <a>
 
 def printInvoices():
+    return True
+
+
+def GUI():
     return True
 
 
@@ -87,15 +93,16 @@ def main():
     l = input("Enter your email: ")
     p = input("Enter your password: ")
     mode = input("Enter mode of filtering invoices [The last 30 days, Current month, Previous month, All history, Any date]: ")
-    if mode == "The last 30 days" or mode == "":
+    if mode != "The last 30 days" and mode != "":
         start = input("Select starting date [YYYY-MM-DD]: ")
         end = input("Select ending date [YYYY-MM-DD]: ")
         # Add prefix to choose right date
 
-    print = input("Do you wanna print the invoices? [Y/N]: ")
+    print=input("Do you wanna print the invoices? [Y/N]: ")
     if (login(l, p)):
         getInvoices()
-        # logoutClose()
+
+        logoutClose()
 
 
 if __name__ == "__main__":
