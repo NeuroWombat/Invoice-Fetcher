@@ -23,10 +23,11 @@ pip install -r requriements.txt
 ## 🔮Future Improvements🔮
   🟡 Sorting invoices  
   🟡 Printing invoices  
-  🟡 User-friendly date selection (manual or period-based)  
+  🟡 User-friendly date selection (manual or period-based)
+  🟡 Implementing UI for better accessibility 
   
-  🔴 Folder selection for saving downloaded invoices  
-  🔴 Implementing UI for better accessibility  
+  🔴 Folder selection for saving downloaded invoices 
+  🔴 Data validation 
   🔴 Better error-handling with selenium find_element
 
 ## Contributing
