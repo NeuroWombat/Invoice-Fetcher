@@ -21,11 +21,10 @@ pip install -r requriements.txt
 ![Python icon](https://cdn3.iconfinder.com/data/icons/logos-and-brands-adobe/512/267_Python-512.png)
 
 ## 🔮Future Improvements🔮
-  🟡 Downloading invoices form service  
   🟡 Sorting invoices  
   🟡 Printing invoices  
+  🟡 User-friendly date selection (manual or period-based)  
   
-  🔴 User-friendly date selection (manual or period-based)  
   🔴 Folder selection for saving downloaded invoices  
   🔴 Implementing UI for better accessibility  
   🔴 Better error-handling with selenium find_element
