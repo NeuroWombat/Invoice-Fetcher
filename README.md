@@ -21,10 +21,11 @@ pip install -r requriements.txt
  <img src="https://github.com/NeuroWombat/IMG/blob/main/Python.png" height="64px"></img>
 
 ## 🔮Future Improvements🔮
+  🟡 User-friendly date selection (manual or period-based)  
+  🟡 Implementing UI for better accessibility  
+  🟡 Refactor the code to an object-oriented structure  
   🟡 Sorting invoices  
   🟡 Printing invoices  
-  🟡 User-friendly date selection (manual or period-based)  
-  🟡 Implementing UI for better accessibility 
   
   🔴 Folder selection for saving downloaded invoices  
   🔴 Data validation  
