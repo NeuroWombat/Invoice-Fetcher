@@ -4,84 +4,78 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import time
 
-driver = None
+
+class autopayAutomation:
+    def __init__(self):
+        self.driver = None
+
+    def startBrowser(self):
+        self.driver = webdriver.Firefox()
+        self.driver.get('https://app.autopay.eu/login')
+
+    def login(self,email,password):
+        self.driver.find_element(By.ID,'cmpwelcomebtnyes').click()  # Accepting cookies to input user data and press login button
+        time.sleep(1)  # Wait for cookies pop-up to disappear
+
+        # Find inputs on website
+        email_input = self.driver.find_element(By.ID,'email')
+        pass_input = self.driver.find_element(By.ID,'password')
+        submit_BTN = self.driver.find_element(By.XPATH,'//button[@type="submit"]')
+
+        email_input.send_keys(email)
+        pass_input.send_keys(password)
+        submit_BTN.click()
+
+        time.sleep(2)  # Wait for change of site
+        if "dashboard" in self.driver.current_url:
+            return True
+        else:
+            print("Login error")
+
+        return False
+
+    def logout(self):
+        self.driver.get('https://app.autopay.eu/dashboard')
+
+        time.sleep(1)
+
+        self.driver.find_element(By.CLASS_NAME,'autopay-header__logout').click()
+        self.driver.quit()
+
+    def filterInvoices(self,mode,period):
+        self.driver.get('https://app.autopay.eu/invoices')
+        time.sleep(2)  # Wait for site load
+
+        # Setting limit selector to maximum [50]
+        limit_selector = self.driver.find_element(By.XPATH,'//autopay-select[@name="pageLimit"]//div[@class="ngx-select__toggle btn form-control"]')
+        limit_selector.click()
+        self.driver.find_element(By.XPATH,'//span[text()="50"]').click()
+
+        # Selecting time period
+        time_period = self.driver.find_element(By.XPATH,'//autopay-select[@name="period"]//div[@class="ngx-select__toggle btn form-control"]')
+        time_period.click()
+        period_option = self.driver.find_element(By.XPATH,f'//span[text()="{mode}"]')
+        period_option.click()
+        if mode == "Any Date":
+            start = period[0]
+            end = period[1]
+
+        self.driver.find_element(By.XPATH,'//button[@type="submit"]').click()
+        time.sleep(1)
+
+    def downloadInvoices(self):
+        # directory="C:\Program Files\Autopay"
+        pages = self.driver.find_elements(By.XPATH, '//div[@class="pagination-pages"]//a')
+        last_page = int(pages[-2].text)
+
+        for i in range(0,last_page):
+            time.sleep(2)  # Wait to load page
+            buttons = self.driver.find_elements(By.XPATH,'//a[@class="download-link ng-star-inserted"]')  # Gets all of PDFs download buttons
+            for j in range(0,len(buttons)):
+                buttons[j].click()  # Downloads invoice
+
+            pages[-1].click()  # Pointing to the last element which is next page <a>
 
 
-def login(email, password):
-    global driver       # Overriding global variable
-    driver=webdriver.Firefox()
-    driver.get('https://app.autopay.eu/login')
-
-    # Accepting cookies to input user data and press login button
-    time.sleep(1)
-    driver.find_element(By.ID, 'cmpwelcomebtnyes').click()
-    time.sleep(1)  # Wait for cookies pop-up to disappear
-
-    email_input = driver.find_element(By.ID, 'email')
-    pass_input = driver.find_element(By.ID, 'password')
-    submit_BTN = driver.find_element(By.XPATH, "//button[@type='submit']")
-
-    email_input.send_keys(email)
-    pass_input.send_keys(password)
-    submit_BTN.click()
-
-    # Checking if login was successful by changing url to dashboard
-    time.sleep(2)  # Wait for change of site
-    if "dashboard" in driver.current_url:
+    def printInvoices(self):
         return True
-    else:
-        print("Login error")
-
-    return False
-
-
-def logoutClose():
-    driver.get('https://app.autopay.eu/dashboard')
-
-    logout_BTN = driver.find_element(By.CLASS_NAME,'autopay-header__logout')
-    logout_BTN.click()
-
-    driver.quit()
-
-
-def getInvoices():
-    driver.get('https://app.autopay.eu/invoices')
-    time.sleep(3)  # Wait for site load
-
-    # Setting limit selector to maximum [50]
-    invoice_limit = driver.find_element(By.XPATH,'//autopay-select[@name="pageLimit"]//div[@class="ngx-select__toggle btn form-control"]')
-    invoice_limit.click()
-    limit_option = driver.find_element(By.XPATH,'//span[text()="50"]')
-    limit_option.click()
-
-    # Version for time from select
-    time_period = driver.find_element(By.XPATH,'//autopay-select[@name="period"]//div[@class="ngx-select__toggle btn form-control"]')
-    time_period.click()
-    tP_option = driver.find_element(By.XPATH,'//span[text()="The last 30 days"]')
-    tP_option.click()
-
-    '''Version for selecting exact data
-    start_time=
-    end_time=
-
-    '''
-    # Apply time period change
-    driver.find_element(By.XPATH,'//button[@type="submit"]').click()
-    time.sleep(1)
-
-    # Downloading invoices
-    #directory="C:\Program Files\Autopay"
-    pages = driver.find_elements(By.XPATH,'//div[@class="pagination-pages"]//a')
-    last_page = int(pages[-2].text)
-
-    for i in range(0,last_page):
-        time.sleep(10)  # Wait to load page
-        buttons = driver.find_elements(By.XPATH,'//a[@class="download-link ng-star-inserted"]')     # Gets all of PDFs download buttons
-        for j in range(0,len(buttons)):
-            buttons[j].click()          #Downloads invoice
-
-        pages[-1].click()     # Pointing to the last element which is next page <a>
-
-
-def printInvoices():
-    return True
