@@ -1,4 +1,4 @@
-# Autopay-invoice-automation
+# Invoice-Fetcher
 A Python program for automating the downloading and printing of invoices from the Autopay service.
 
 ## ✨Features✨
