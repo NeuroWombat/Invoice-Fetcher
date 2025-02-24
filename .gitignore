@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 XXXX.png
+
+__pycache__

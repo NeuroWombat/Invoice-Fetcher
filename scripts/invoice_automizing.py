@@ -1,17 +1,9 @@
 from selenium import webdriver
+from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import time
-
-'''
-from selenium.webdriver.firefox.options import Options
-
-options = Options()
-options.add_argument("--headless")  # Całkowicie ukrywa przeglądarkę
-options.add_argument("--window-size=1920,1080")  # Opcjonalnie ustaw rozmiar
-self.driver = webdriver.Firefox(options=options)
-'''
 
 
 
@@ -20,7 +12,9 @@ class autopayAutomation:
         self.driver = None
 
     def startBrowser(self):
-        self.driver = webdriver.Firefox()
+        options = Options()
+        #options.add_argument("--headless")
+        self.driver = webdriver.Firefox(options=options)
         self.driver.get('https://app.autopay.eu/login')
 
     def login(self,email,password):
