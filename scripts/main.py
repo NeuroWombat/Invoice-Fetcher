@@ -3,7 +3,6 @@ from invoice_automizing import *
 
 
 def main():
-    app=appInterface()
     autopay=autopayAutomation()
 
     if app.validFlag:

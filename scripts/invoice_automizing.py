@@ -4,6 +4,16 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
 import time
 
+'''
+from selenium.webdriver.firefox.options import Options
+
+options = Options()
+options.add_argument("--headless")  # Całkowicie ukrywa przeglądarkę
+options.add_argument("--window-size=1920,1080")  # Opcjonalnie ustaw rozmiar
+self.driver = webdriver.Firefox(options=options)
+'''
+
+
 
 class autopayAutomation:
     def __init__(self):
