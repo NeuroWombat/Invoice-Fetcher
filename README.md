@@ -1,4 +1,4 @@
-# Autopay-invoice-automation
+# Invoice-Fetcher
 A Python program for automating the downloading and printing of invoices from the Autopay service.
 
 ## ✨Features✨
@@ -9,7 +9,7 @@ A Python program for automating the downloading and printing of invoices from th
 ## 💾Instalation💾
 ### 1. Clone the repository.
 ```
-git clone https://github.com/TwojeGitHub/Autopay-invoice-automation.git
+git clone https://github.com/NeuroWombat/Invoice-Fetcher.git
 ```
 ### 2. Install requried dependencies:
 ```
@@ -21,13 +21,10 @@ pip install -r requriements.txt
  <img src="https://github.com/NeuroWombat/IMG/blob/main/Python.png" height="64px"></img>
 
 ## 🔮Future Improvements🔮
-  🟡 User-friendly date selection (manual or period-based)  
   🟡 Implementing UI for better accessibility  
-  🟡 Refactor the code to an object-oriented structure  
-  🟡 Sorting invoices  
   🟡 Printing invoices  
+  🟡 Folder selection for saving downloaded invoices  
   
-  🔴 Folder selection for saving downloaded invoices  
   🔴 Data validation  
   🔴 Better error-handling with selenium find_element  
 
