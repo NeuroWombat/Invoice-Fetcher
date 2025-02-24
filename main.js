@@ -13,10 +13,8 @@ const createWindow = () => {
     })
 
     win.loadFile(path.resolve(__dirname, "dist/index.html"));
-    win.webContents.openDevTools(); // Przenieś to tutaj
 }
 
 app.whenReady().then(() => {
   createWindow();
-  win.webContents.openDevTools();
 })
